@@ -1,0 +1,263 @@
+@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Google+Sans:wght@400;500;700&display=swap');
+
+/* ─── Gemini-inspired Design System ─── */
+@theme {
+  --font-sans: 'Inter', 'Google Sans', system-ui, sans-serif;
+
+  /* Core palette — white/blue/Gemini */
+  --color-bg-primary:    #f8faff;
+  --color-bg-secondary:  #eef3ff;
+  --color-bg-card:       #ffffff;
+  --color-bg-elevated:   #f0f4ff;
+  --color-border:        #dde6ff;
+  --color-border-hover:  #b3c4ff;
+
+  --color-text-primary:   #0d1b4b;
+  --color-text-secondary: #4a5a8a;
+  --color-text-muted:     #8a9bcc;
+
+  /* Gemini gradient blues */
+  --color-gem-blue:       #1a73e8;
+  --color-gem-indigo:     #4f46e5;
+  --color-gem-violet:     #7c3aed;
+  --color-gem-teal:       #0891b2;
+  --color-gem-sky:        #0ea5e9;
+
+  /* Agent colors */
+  --color-agent-customer: #1a73e8;
+  --color-agent-crm:      #7c3aed;
+  --color-agent-policy:   #059669;
+  --color-agent-fraud:    #d97706;
+  --color-agent-decision: #dc2626;
+
+  /* Status */
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-error:   #dc2626;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #c7d4ff transparent;
+  }
+  *::-webkit-scrollbar { width: 5px; height: 5px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+  *::-webkit-scrollbar-thumb { background: #c7d4ff; border-radius: 99px; }
+}
+
+/* ─── Keyframes ─── */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(26,115,232,0.35); }
+  70%  { box-shadow: 0 0 0 10px rgba(26,115,232,0); }
+  100% { box-shadow: 0 0 0 0 rgba(26,115,232,0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes bounce-dot {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.4; }
+  40%           { transform: scale(1); opacity: 1; }
+}
+@keyframes gradient-flow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes pipeline-flow {
+  0%   { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes agent-enter {
+  from { opacity: 0; transform: translateX(-10px) scale(0.97); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes check-pop {
+  0%   { transform: scale(0); }
+  60%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* ─── Utility classes ─── */
+.animate-slide-up        { animation: slide-up 0.35s cubic-bezier(0.16,1,0.3,1) both; }
+.animate-slide-in-left   { animation: slide-in-left 0.35s cubic-bezier(0.16,1,0.3,1) both; }
+.animate-slide-in-right  { animation: slide-in-right 0.35s cubic-bezier(0.16,1,0.3,1) both; }
+.animate-fade-in         { animation: fade-in 0.3s ease both; }
+.animate-scale-in        { animation: scale-in 0.3s cubic-bezier(0.16,1,0.3,1) both; }
+.animate-pulse-ring      { animation: pulse-ring 1.8s ease-out infinite; }
+.animate-agent-enter     { animation: agent-enter 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+.animate-check-pop       { animation: check-pop 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
+
+/* Staggered delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* ─── Card styles ─── */
+.card {
+  background: #ffffff;
+  border: 1px solid #dde6ff;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(26,115,232,0.06), 0 4px 16px rgba(26,115,232,0.04);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.card:hover {
+  box-shadow: 0 4px 20px rgba(26,115,232,0.12), 0 1px 4px rgba(26,115,232,0.08);
+  border-color: #b3c4ff;
+}
+.card-elevated {
+  box-shadow: 0 8px 32px rgba(26,115,232,0.10), 0 2px 8px rgba(26,115,232,0.06);
+}
+
+/* ─── Gemini gradient button ─── */
+.btn-gemini {
+  background: linear-gradient(135deg, #1a73e8 0%, #4f46e5 50%, #7c3aed 100%);
+  background-size: 200% 200%;
+  animation: gradient-flow 4s ease infinite;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 24px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  box-shadow: 0 4px 15px rgba(26,115,232,0.3);
+}
+.btn-gemini:hover  { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(26,115,232,0.4); }
+.btn-gemini:active { transform: translateY(0); }
+.btn-gemini:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* ─── Gemini gradient text ─── */
+.text-gemini {
+  background: linear-gradient(135deg, #1a73e8, #4f46e5, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Shimmer loading ─── */
+.shimmer {
+  background: linear-gradient(90deg, #f0f4ff 25%, #e0e8ff 50%, #f0f4ff 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ─── Pipeline connector ─── */
+.pipeline-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #dde6ff;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.pipeline-dot.active  { background: #1a73e8; transform: scale(1.3); box-shadow: 0 0 0 4px rgba(26,115,232,0.2); }
+.pipeline-dot.done    { background: #16a34a; }
+
+/* ─── Chat bubbles ─── */
+.chat-bubble-user {
+  background: linear-gradient(135deg, #1a73e8, #4f46e5);
+  color: white;
+  border-radius: 18px 18px 4px 18px;
+  padding: 12px 18px;
+  box-shadow: 0 4px 12px rgba(26,115,232,0.25);
+}
+.chat-bubble-agent {
+  background: #ffffff;
+  color: #0d1b4b;
+  border: 1px solid #dde6ff;
+  border-radius: 18px 18px 18px 4px;
+  padding: 12px 18px;
+  box-shadow: 0 2px 8px rgba(26,115,232,0.08);
+}
+
+/* ─── Typing indicator ─── */
+.typing-dot { animation: bounce-dot 1.4s infinite ease-in-out both; }
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+.typing-dot:nth-child(3) { animation-delay: 0s; }
+
+/* ─── Gemini orb decoration ─── */
+.gemini-orb {
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  position: absolute;
+  opacity: 0.35;
+}
+
+/* ─── Input ─── */
+.input-gemini {
+  background: #f8faff;
+  border: 1.5px solid #dde6ff;
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: #0d1b4b;
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  width: 100%;
+  outline: none;
+}
+.input-gemini:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 3px rgba(26,115,232,0.12);
+  background: #ffffff;
+}
+.input-gemini::placeholder { color: #8a9bcc; }
+
+/* ─── Sidebar active link ─── */
+.nav-active {
+  background: linear-gradient(135deg, rgba(26,115,232,0.1), rgba(79,70,229,0.1));
+  border-left: 3px solid #1a73e8;
+  color: #1a73e8;
+  font-weight: 600;
+}
+.nav-inactive {
+  color: #4a5a8a;
+  transition: background 0.15s ease, color 0.15s ease;
+  border-left: 3px solid transparent;
+}
+.nav-inactive:hover {
+  background: rgba(26,115,232,0.06);
+  color: #1a73e8;
+}
+
+/* ─── Status badges ─── */
+.badge { border-radius: 99px; padding: 3px 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+.badge-approved { background: #dcfce7; color: #16a34a; }
+.badge-denied   { background: #fee2e2; color: #dc2626; }
+.badge-escalated{ background: #fef3c7; color: #d97706; }
+.badge-pending  { background: #eff6ff; color: #1a73e8; }
+.badge-blue     { background: rgba(26,115,232,0.1); color: #1a73e8; }

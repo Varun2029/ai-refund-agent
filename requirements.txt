@@ -1,0 +1,37 @@
+# ============================================================================
+# AI Customer Support Operations Platform — Python dependencies
+# ============================================================================
+
+# --- Web framework ---
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+python-multipart==0.0.20
+
+# --- Database ---
+sqlalchemy==2.0.40
+psycopg2-binary==2.9.10
+
+# --- Auth ---
+PyJWT==2.10.1
+passlib[bcrypt]==1.7.4
+
+# --- Configuration ---
+python-dotenv==1.1.0
+pydantic==2.11.3
+
+# --- HTTP client ---
+httpx==0.28.1
+websockets==15.0.1
+
+# --- LangGraph / LangChain ---
+langgraph==0.4.7
+langchain-core==0.3.51
+
+# --- LLM providers ---
+google-genai==1.14.0
+groq==0.25.0
+
+# --- RAG / Embeddings ---
+faiss-cpu==1.11.0
+sentence-transformers==4.1.0
+numpy>=1.26.0,<2.0.0
