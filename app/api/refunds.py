@@ -59,7 +59,7 @@ def get_customer_history(
         order_dict = {"id": r.order.id, "order_number": r.order.order_number, "amount": r.order.amount} if r.order else {}
         customer_dict = {"id": r.customer.id, "name": r.customer.name, "email": r.customer.email} if r.customer else {}
         
-        from app.schemas.analytics import AgentLogResponse
+        from app.schemas.refund import AgentLogResponse
         agent_logs = [AgentLogResponse.model_validate(log) for log in r.agent_logs]
         
         detail = RefundDetail(
