@@ -1,14 +1,24 @@
 import asyncio
-from app.graph.workflow import get_workflow
+from app.db.database import SessionLocal
+from app.services.refund_service import process_refund
 
-async def main():
-    workflow = get_workflow()
-    async for output in workflow.astream({
-        'request_id': 'test-local-run',
-        'customer_message': 'I received my order ORD-0001 today but it arrived completely shattered. It was a $120 glass vase. I want a refund.',
-        'refund_id': 1
-    }, config={'configurable': {'thread_id': 'test'}}):
-        print(output)
+async def test_workflow():
+    db = SessionLocal()
+    print("Running process_refund...")
+    try:
+        result = await process_refund(
+            db=db,
+            customer_message="I want a refund for my broken headphones on order ORD-1001",
+            customer_id=1,
+            order_number="ORD-1001",
+        )
+        print("Workflow result:", result)
+    except Exception as e:
+        print("Workflow ERROR:", e)
+        import traceback
+        traceback.print_exc()
+    finally:
+        db.close()
 
-if __name__ == '__main__':
-    asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(test_workflow())

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import AppLayout from '../components/layout/AppLayout'
-import { Terminal, CheckCircle2, Shield, Brain, FileCheck, UserCheck, Sparkles } from 'lucide-react'
+import { Terminal, Shield, Brain, FileCheck, UserCheck, Sparkles } from 'lucide-react'
 import { useAllAgentLogs } from '../hooks/useWebSocket'
 import { formatDuration } from '../lib/utils'
 

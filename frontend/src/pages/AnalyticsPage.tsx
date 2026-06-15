@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import AppLayout from '../components/layout/AppLayout'
-import { BarChart3, TrendingUp, AlertTriangle, Users } from 'lucide-react'
+import { TrendingUp, AlertTriangle, Users } from 'lucide-react'
 import { getRefundAnalytics, getFraudAnalytics, getAgentAnalytics } from '../lib/api'
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell, Legend } from 'recharts'
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts'
 
 export default function AnalyticsPage() {
   const [refundData, setRefundData] = useState<any[]>([])
@@ -22,7 +22,7 @@ export default function AnalyticsPage() {
     }).finally(() => setLoading(false))
   }, [])
 
-  const COLORS = ['#1a73e8', '#10b981', '#f43f5e', '#f59e0b', '#8b5cf6']
+
 
   return (
     <AppLayout>
