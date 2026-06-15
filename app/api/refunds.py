@@ -54,23 +54,7 @@ def get_customer_history(
         .all()
     )
 
-    return [RefundDetail(
-        id=r.id,
-        request_id=r.request_id,
-        order_id=r.order_id,
-        customer_id=r.customer_id,
-        reason=r.reason,
-        refund_amount=r.refund_amount,
-        status=r.status,
-        fraud_score=r.fraud_score,
-        policy_check=r.policy_check,
-        decision_rationale=r.decision_rationale,
-        created_at=r.created_at,
-        resolved_at=r.resolved_at,
-        agent_logs=[AgentLogResponse.model_validate(log) for log in r.agent_logs],
-        order=r.order,
-        customer=r.customer,
-    ) for r in refunds]
+    return [RefundDetail.model_validate(r) for r in refunds]
 
 
 @router.get("/{refund_id}", response_model=RefundDetail)
@@ -93,23 +77,7 @@ def get_refund(
     if not refund:
         raise HTTPException(status_code=404, detail="Refund request not found")
 
-    return RefundDetail(
-        id=refund.id,
-        request_id=refund.request_id,
-        order_id=refund.order_id,
-        customer_id=refund.customer_id,
-        reason=refund.reason,
-        refund_amount=refund.refund_amount,
-        status=refund.status,
-        fraud_score=refund.fraud_score,
-        policy_check=refund.policy_check,
-        decision_rationale=refund.decision_rationale,
-        created_at=refund.created_at,
-        resolved_at=refund.resolved_at,
-        agent_logs=[AgentLogResponse.model_validate(log) for log in refund.agent_logs],
-        order=refund.order,
-        customer=refund.customer,
-    )
+    return RefundDetail.model_validate(refund)
 
 
 @router.post("", response_model=dict)
