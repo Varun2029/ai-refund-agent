@@ -199,9 +199,13 @@ export default function ChatPage() {
                     <CheckCircle2 size={18} className="text-[#1a73e8]" />
                     <span className="font-bold text-[#0d1b4b]">Decision Complete</span>
                   </div>
-                  <span className={decisionBadge(result.decision)}>{result.decision.toUpperCase()}</span>
+                  <span className={decisionBadge(result.decision)}>
+                    {result.decision === 'escalated' ? 'UNDER REVIEW' : result.decision.toUpperCase()}
+                  </span>
                 </div>
-                <p className="text-sm text-[#4a5a8a] leading-relaxed mb-4">{result.decision_rationale}</p>
+                <p className="text-sm text-[#4a5a8a] leading-relaxed mb-4">
+                  {result.decision === 'escalated' ? 'Denied for now, will go for review' : result.decision_rationale}
+                </p>
                 <div className="grid grid-cols-3 gap-2">
                   <div className="bg-white rounded-xl p-3 border border-[#dde6ff] text-center">
                     <p className="text-xs text-[#8a9bcc] mb-1">Fraud Score</p>

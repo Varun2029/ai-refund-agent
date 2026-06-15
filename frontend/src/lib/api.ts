@@ -150,3 +150,7 @@ export async function resolveEscalation(
     }),
   })
 }
+
+export async function getAgentAnalytics() {
+  return fetchAPI('/analytics/agents')
+}

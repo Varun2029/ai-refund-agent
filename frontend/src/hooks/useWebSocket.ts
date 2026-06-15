@@ -3,7 +3,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react'
-import { ChatWebSocket, LogsWebSocket, type WebSocketMessage, type AgentLog, type WorkflowResult } from '../lib/ws'
+import { ChatWebSocket, LogsWebSocket, AllLogsWebSocket, type WebSocketMessage, type AgentLog, type WorkflowResult } from '../lib/ws'
 
 export function useWebSocketChat() {
   const [isConnected, setIsConnected] = useState(false)
@@ -102,6 +102,28 @@ export function useAgentLogs(requestId: string | null) {
       ws.disconnect()
     }
   }, [requestId, ws])
+
+  return { logs, isConnected }
+}
+
+export function useAllAgentLogs() {
+  const [logs, setLogs] = useState<AgentLog[]>([])
+  const [isConnected, setIsConnected] = useState(false)
+  const [ws] = useState(() => new AllLogsWebSocket())
+
+  useEffect(() => {
+    ws.connect((msg) => {
+      if (msg.type === 'agent_log') {
+        setLogs(prev => [...prev, msg.data as AgentLog])
+      }
+    }).then(() => {
+      setIsConnected(true)
+    }).catch(console.error)
+
+    return () => {
+      ws.disconnect()
+    }
+  }, [ws])
 
   return { logs, isConnected }
 }

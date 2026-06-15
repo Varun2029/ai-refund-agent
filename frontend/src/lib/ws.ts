@@ -177,3 +177,54 @@ export class LogsWebSocket {
     }
   }
 }
+
+export class AllLogsWebSocket {
+  private ws: WebSocket | null = null
+
+  connect(
+    onMessage: (msg: WebSocketMessage) => void
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      try {
+        const defaultProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+        const wsUrl = import.meta.env.VITE_WS_URL 
+          ? `${import.meta.env.VITE_WS_URL}/logs`
+          : `${defaultProtocol}//${window.location.host}/ws/logs`
+
+        this.ws = new WebSocket(wsUrl)
+
+        this.ws.onopen = () => {
+          console.log(`[WS-Logs] Connected to all logs`)
+          resolve()
+        }
+
+        this.ws.onmessage = (event) => {
+          try {
+            const msg = JSON.parse(event.data)
+            onMessage(msg)
+          } catch (e) {
+            console.error('[WS-Logs] Failed to parse message:', e)
+          }
+        }
+
+        this.ws.onerror = (event) => {
+          console.error('[WS-Logs] Error:', event)
+          reject(new Error('WebSocket error'))
+        }
+
+        this.ws.onclose = () => {
+          console.log('[WS-Logs] Disconnected')
+        }
+      } catch (e) {
+        reject(e)
+      }
+    })
+  }
+
+  disconnect() {
+    if (this.ws) {
+      this.ws.close()
+      this.ws = null
+    }
+  }
+}
