@@ -56,8 +56,8 @@ def get_customer_history(
 
     result = []
     for r in refunds:
-        order_dict = {"id": r.order.id, "order_number": r.order.order_number, "amount": r.order.amount} if r.order else {}
-        customer_dict = {"id": r.customer.id, "name": r.customer.name, "email": r.customer.email} if r.customer else {}
+        order_dict = {"id": r.order.id, "order_number": r.order.order_number, "amount": r.order.amount, "status": r.order.status} if r.order else None
+        customer_dict = {"id": r.customer.id, "name": r.customer.name, "email": r.customer.email, "tier": r.customer.tier} if r.customer else None
         
         from app.schemas.refund import AgentLogResponse
         agent_logs = [AgentLogResponse.model_validate(log) for log in r.agent_logs]
@@ -65,6 +65,8 @@ def get_customer_history(
         detail = RefundDetail(
             id=r.id,
             request_id=r.request_id,
+            order_id=r.order_id,
+            customer_id=r.customer_id,
             order=order_dict,
             customer=customer_dict,
             reason=r.reason,

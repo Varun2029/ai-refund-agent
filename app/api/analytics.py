@@ -20,16 +20,16 @@ def get_refund_analytics(
     current_user: User = Depends(get_current_user),
 ):
     """Get refund volume time series data grouped by date."""
-    rows = (
-        db.query(
-            cast(RefundRequest.created_at, Date).label("date"),
-            RefundRequest.status,
-            func.count(RefundRequest.id).label("count"),
-        )
-        .group_by(cast(RefundRequest.created_at, Date), RefundRequest.status)
-        .order_by(cast(RefundRequest.created_at, Date))
-        .all()
-    )
+    from sqlalchemy import text
+    
+    rows = db.execute(
+        text("""
+        SELECT DATE(created_at) as date, status, COUNT(id) as count 
+        FROM refund_requests 
+        GROUP BY DATE(created_at), status
+        ORDER BY DATE(created_at)
+        """)
+    ).all()
 
     # Pivot by date
     date_map: dict[str, dict] = {}
