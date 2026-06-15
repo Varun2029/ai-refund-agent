@@ -16,7 +16,7 @@ class Settings:
     # --- Database ---
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL",
-        "postgresql://postgres:postgres@localhost:5432/refund_agent",
+        "sqlite:///./refund_platform.db",
     )
 
     # --- JWT ---
