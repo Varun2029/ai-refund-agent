@@ -54,7 +54,32 @@ def get_customer_history(
         .all()
     )
 
-    return [RefundDetail.model_validate(r) for r in refunds]
+    result = []
+    for r in refunds:
+        order_dict = {"id": r.order.id, "order_number": r.order.order_number, "amount": r.order.amount} if r.order else {}
+        customer_dict = {"id": r.customer.id, "name": r.customer.name, "email": r.customer.email} if r.customer else {}
+        
+        from app.schemas.analytics import AgentLogResponse
+        agent_logs = [AgentLogResponse.model_validate(log) for log in r.agent_logs]
+        
+        detail = RefundDetail(
+            id=r.id,
+            request_id=r.request_id,
+            order=order_dict,
+            customer=customer_dict,
+            reason=r.reason,
+            refund_amount=r.refund_amount,
+            status=r.status,
+            fraud_score=r.fraud_score,
+            policy_check=r.policy_check,
+            decision_rationale=r.decision_rationale,
+            agent_logs=agent_logs,
+            created_at=r.created_at,
+            resolved_at=r.resolved_at,
+        )
+        result.append(detail)
+        
+    return result
 
 
 @router.get("/{refund_id}", response_model=RefundDetail)
