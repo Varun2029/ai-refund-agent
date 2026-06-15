@@ -1,12 +1,3 @@
----
-title: AI Refund Agent
-emoji: 🤖
-colorFrom: blue
-colorTo: indigo
-sdk: docker
-pinned: false
-app_port: 7860
----
 
 # Refund AI: Multi-Agent Customer Support Platform
 
@@ -18,8 +9,9 @@ This repository was developed to showcase an advanced multi-agent architecture h
 
 ## 🎥 Submission Links
 
-- **Loom Video Walkthrough:** [Insert Loom Link Here]
-- **Public GitHub Repository:** [Insert GitHub Link Here]
+- **Loom Video Walkthrough:** https://www.loom.com/share/d01060a28e61417fa7be574cc42292f3
+
+- **Public GitHub Repository:** https://github.com/Varun2029/ai-refund-agent
 
 ---
 
