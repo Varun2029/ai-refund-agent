@@ -112,6 +112,16 @@ export function useAllAgentLogs() {
   const [ws] = useState(() => new AllLogsWebSocket())
 
   useEffect(() => {
+    // 1. Fetch recent history first
+    import('../lib/api').then(({ getRecentAgentLogs }) => {
+      getRecentAgentLogs()
+        .then((recentLogs: any[]) => {
+          setLogs(recentLogs)
+        })
+        .catch(console.error)
+    })
+
+    // 2. Connect websocket for live updates
     ws.connect((msg) => {
       if (msg.type === 'agent_log') {
         setLogs(prev => [...prev, msg.data as AgentLog])

@@ -37,7 +37,7 @@ class Settings:
 
     # --- CORS ---
     CORS_ORIGINS: list[str] = json.loads(
-        os.getenv("CORS_ORIGINS", '["http://localhost:5173","http://localhost:3000"]')
+        os.getenv("CORS_ORIGINS", '["*"]')
     )
 
     # --- SMTP (Mailtrap) ---

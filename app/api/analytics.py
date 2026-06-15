@@ -97,3 +97,18 @@ def get_agent_performance(
         )
         for row in rows
     ]
+
+
+@router.get("/logs/recent")
+def get_recent_logs(
+    limit: int = 50,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Get the most recent agent logs for the Agent Logs dashboard to initialize the view."""
+    logs = db.query(AgentLog).order_by(AgentLog.created_at.desc()).limit(limit).all()
+    # Reverse to return oldest first so they append nicely on the frontend
+    logs.reverse()
+    
+    from app.schemas.refund import AgentLogResponse
+    return [AgentLogResponse.model_validate(log) for log in logs]
