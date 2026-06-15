@@ -25,7 +25,7 @@ class Settings:
     JWT_EXPIRATION_HOURS: int = int(os.getenv("JWT_EXPIRATION_HOURS", "24"))
 
     # --- LLM Provider ---
-    LLM_PROVIDER: str = os.getenv("LLM_PROVIDER", "gemini")  # "gemini" | "groq"
+    LLM_PROVIDER: str = os.getenv("LLM_PROVIDER", "groq")  # "gemini" | "groq"
 
     # --- Google Gemini ---
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
