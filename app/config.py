@@ -28,11 +28,11 @@ class Settings:
     LLM_PROVIDER: str = os.getenv("LLM_PROVIDER", "groq")  # "gemini" | "groq"
 
     # --- Google Gemini ---
-    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
+    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "").strip()
     GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
     # --- Groq ---
-    GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
+    GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "").strip()
     GROQ_MODEL: str = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
     # --- CORS ---
