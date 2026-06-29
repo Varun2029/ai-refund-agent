@@ -37,7 +37,7 @@ class Settings:
 
     # --- CORS ---
     CORS_ORIGINS: list[str] = json.loads(
-        os.getenv("CORS_ORIGINS", '["*"]')
+        os.getenv("CORS_ORIGINS", '["http://localhost:5173", "https://ai-refund-agent-sigma.vercel.app"]')
     )
 
     # --- SMTP (Mailtrap) ---
